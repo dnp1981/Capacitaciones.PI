@@ -3,86 +3,389 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Capacitaciones - Procesos e Innovación</title>
+  <title>Procesos e Innovación - Capacitación Interna</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p6XnX4b2nYbc8EcnlYOP+G8nCw4Hrl1Uxk6tn1fLhj/uFe/IPeEdmH3WZavlFzTgfQe9Y2LlmkPYYh6+PMxw9g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
-      --primary-color: #f05a28;
-      --secondary-color: #0c1d2e;
-      --text-color: #ffffff;
-      --bg-color: #f7f7f7;
-      --tile-color: #00aaff;
-      --tile-inactive: #cccccc;
+      --primary-color: #007bff; /* Un azul vibrante */
+      --secondary-color: #6c757d; /* Gris para contrastar */
+      --accent-color: #17a2b8; /* Nuevo tono celeste/teal */
+      --background-light: #f8f9fa;
+      --background-dark: #343a40;
+      --text-dark: #212529;
+      --text-light: #ffffff;
+      --card-shadow: rgba(0, 0, 0, 0.1);
     }
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
+
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--bg-color);
-      color: var(--secondary-color);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: var(--background-light);
     }
-    header {
-      background: var(--secondary-color);
-      color: var(--text-color);
-      padding: 1.5rem 1rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 1rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+
+    .container {
       max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
-    .tile {
-      background: var(--tile-color);
-      color: var(--text-color);
-      text-decoration: none;
+
+    /* --- Navigation Bar --- */
+    nav {
+      background: var(--background-dark);
+      color: var(--text-light);
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px var(--card-shadow);
+    }
+
+    nav .container {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      padding: 3rem;
-      font-size: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--text-light);
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary-color);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-color), #0056b3);
+      color: var(--text-light);
+      padding: 6rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 70%);
+      animation: rotateBg 20s linear infinite;
+    }
+
+    @keyframes rotateBg {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .btn {
+      display: inline-block;
+      background: var(--accent-color); /* Nuevo color */
+      color: var(--text-light);
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: background 0.3s ease, transform 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .btn:hover {
+      background: #138496; /* Tono más oscuro para el hover del nuevo color */
+      transform: translateY(-3px);
+    }
+
+    /* --- Features Section --- */
+    .features-section {
+      padding: 4rem 0;
+      background: var(--background-light);
       text-align: center;
     }
-    .grid:hover .tile:not(:hover) {
-      background: var(--tile-inactive);
+
+    .features-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--primary-color);
     }
-    .tile:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
     }
+
+    .feature-card {
+      background: var(--text-light);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px var(--card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex; /* Added for better layout of content and button */
+      flex-direction: column; /* Added for better layout of content and button */
+      justify-content: space-between; /* Added for better layout of content and button */
+      align-items: center; /* Added for better layout of content and button */
+      text-align: center; /* Ensure text is centered within the card */
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-card i {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: var(--text-dark);
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--secondary-color);
+      flex-grow: 1; /* Allows paragraph to take available space */
+      margin-bottom: 1.5rem; /* Add some space before the button */
+    }
+
+    .feature-card .btn-feature { /* New class for feature card buttons */
+      display: inline-block;
+      background: var(--accent-color);
+      color: var(--text-light);
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: background 0.3s ease, transform 0.3s ease;
+      white-space: nowrap; /* Prevent button text from wrapping */
+    }
+
+    .feature-card .btn-feature:hover {
+      background: #138496;
+      transform: translateY(-2px);
+    }
+
+    .feature-card .btn-disabled {
+      background: #adb5bd; /* A light grey for disabled/in construction */
+      cursor: not-allowed;
+      pointer-events: none; /* Disables click */
+    }
+
+
+    /* --- Call to Action Section --- */
+    .cta-section {
+      background: var(--primary-color);
+      color: var(--text-light);
+      padding: 4rem 0;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    .cta-section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-section .btn {
+      display: inline-block;
+      background: var(--accent-color); /* Nuevo color */
+      color: var(--text-light);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.15rem;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .cta-section .btn:hover {
+      background: #138496; /* Tono más oscuro para el hover del nuevo color */
+      transform: translateY(-3px);
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: var(--background-dark);
+      color: var(--text-light);
+      text-align: center;
+      padding: 2.5rem 0;
+      font-size: 0.9rem;
+      margin-top: 0; /* Remove extra margin */
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+    }
+
+    footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--text-light);
+    }
+
+    /* --- Responsive Design --- */
     @media (max-width: 768px) {
-      .grid {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .features-section h2, .cta-section h2 {
+        font-size: 2rem;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 1rem;
+      }
+
+      nav .container {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .hero .btn, .cta-section .btn {
+        padding: 0.8rem 1.8rem;
+        font-size: 1rem;
+      }
+
+      .features-grid {
         grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Área de Procesos e Innovación</h1>
-    <p>Selecciona una capacitación</p>
-  </header>
-  <main>
-    <div class="grid">
-      <a href="DE_PM_A_AI-PM.html" class="tile">DE PM A AI-PM</a>
-      <a href="MODELO_CRAFT.html" class="tile">MODELO CRAFT</a>
-      <a href="MCP.html" class="tile">MCP</a>
+
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">Procesos e Innovación</a>
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="index.html#cursos">Nuestros Cursos</a></li>
+        <li><a href="index.html#contacto">Contacto</a></li>
+      </ul>
     </div>
-  </main>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1>Potenciamos tu Talento</h1>
+      <p>Capacitaciones de vanguardia para el equipo de Procesos e Innovación, impulsando el futuro juntos.</p>
+      <a href="index.html#cursos" class="btn">Explorar Capacitaciones</a>
+    </div>
+  </header>
+
+  <section class="features-section">
+    <div class="container">
+      <h2>Nuestras Áreas Clave de Capacitación</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-robot"></i>
+          <h3>De PM a AI-PM</h3>
+          <p>Transforma la gestión de proyectos integrando inteligencia artificial para resultados innovadores.</p>
+          <a href="DE_PM_A_AI-PM.html" class="btn-feature">Ver Curso</a>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-cogs"></i>
+          <h3>Modelo CRAFT</h3>
+          <p>Domina el framework CRAFT para optimizar procesos y garantizar una calidad continua superior.</p>
+          <a href="MODELO_CRAFT.html" class="btn-feature">Ver Curso</a>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-brain"></i>
+          <h3>MCP</h3>
+          <p>Explora la Maestría en Creación de Prompts (MCP) y lleva tus proyectos de IA al siguiente nivel.</p>
+          <a href="MCP.html" class="btn-feature">Ver Curso</a>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-users-line"></i>
+          <h3>Colaboración y Futuro</h3>
+          <p>Además de nuestros cursos específicos, fomenta la sinergia del equipo y la visión a futuro.</p>
+          <span class="btn-feature btn-disabled">En construcción</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>¡Impulsa tu Carrera Interna!</h2>
+      <p>Accede a formaciones exclusivas diseñadas para el crecimiento de nuestro equipo de Procesos e Innovación.</p>
+      <a href="index.html#cursos" class="btn">Ver Catálogo de Cursos</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Procesos e Innovación. Todos los derechos reservados.</p>
+      <p>Contacto: <a href="mailto:Procesoseinnovacion@fedpat.com.ar">Procesoseinnovacion@fedpat.com.ar</a></p>
+    </div>
+  </footer>
+
 </body>
 </html>
