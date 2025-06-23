@@ -77,6 +77,15 @@
             height: 100%;
             background-color: #CBD5E1;
         }
+        .collapsible-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease-out;
+        }
+        .collapsible-content.active {
+            max-height: 500px; /* Adjust based on content size */
+            transition: max-height 0.5s ease-in;
+        }
     </style>
 </head>
 <body class="text-slate-700">
@@ -90,9 +99,9 @@
 
         <main class="space-y-16">
             <section id="what-it-is" class="text-center">
-                 <h2 class="text-3xl font-bold text-slate-800 mb-4">¿Qué es la Orquestación de LLM?</h2>
+                 <h2 class="text-3xl font-bold text-slate-800 mb-4">¿Qué es la Orquestación de LLM (MCP)?</h2>
                  <p class="max-w-3xl mx-auto text-slate-600 mb-8">
-                    Es el cerebro de una aplicación de IA. Actúa como un director de orquesta, coordinando múltiples LLMs, herramientas y fuentes de datos para ejecutar tareas complejas. Transforma capacidades generativas potentes en soluciones de negocio fiables.
+                    La Orquestación de Modelos de Lenguaje Grandes (LLM), a la que nos referimos como **MCP (Master Control Program)** en un sentido conceptual, es el **cerebro central** de una aplicación de IA generativa. Su función principal es **coordinar, gestionar y supervisar** el flujo de trabajo entre diversos componentes, incluyendo múltiples LLMs, herramientas externas (APIs, bases de datos) y fuentes de datos. Transforma las potentes pero a menudo limitadas capacidades de los LLMs individuales en soluciones de IA **robustos, escalables y fiables** para entornos de producción.
                 </p>
                 <div class="bg-white rounded-lg shadow-lg p-8">
                     <h3 class="text-2xl font-bold text-slate-800 mb-4">El Orquestador como Centro de Control</h3>
@@ -124,6 +133,9 @@
 
             <section id="why">
                 <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">¿Por Qué es Indispensable? Superando Limitaciones</h2>
+                <p class="max-w-3xl mx-auto text-slate-600 mb-8">
+                    La orquestación es el **eslabón perdido** para operacionalizar las capacidades fundamentales de los LLMs. Transforma motores generativos potentes pero rudimentarios en componentes de aplicación fiables, conscientes del contexto y orientados a tareas. Este cambio es crucial para pasar de prototipos a sistemas de IA de grado de producción que puedan resolver problemas empresariales multifacéticos.
+                </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
                         <h3 class="text-xl font-bold mb-4">LLM Autónomo (Limitado)</h3>
@@ -155,25 +167,25 @@
             </section>
             
             <section id="evolution">
-                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">La Evolución de la Orquestación</h2>
-                 <p class="text-center max-w-3xl mx-auto text-slate-600 mb-4">La orquestación de LLMs no surgió de la nada. Es el siguiente paso en una larga historia de abstracción y coordinación de sistemas complejos en la computación. No fue inventada por una única persona, sino que evolucionó a partir de las prácticas de gestión de procesos y la orquestación de servicios y contenedores.</p>
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">La Evolución de la Orquestación: Origen de la Necesidad</h2>
+                 <p class="text-center max-w-3xl mx-auto text-slate-600 mb-4">La orquestación de LLMs no surgió de la nada ni fue inventada por una única persona. Es el siguiente paso lógico en una larga historia de abstracción y coordinación de sistemas complejos en la computación. Nace de la necesidad de gestionar la creciente complejidad de los sistemas de software y la transición de un control puramente determinista a una guía probabilística para la IA generativa.</p>
                 <div class="bg-white rounded-lg shadow-md p-8">
                    <div class="relative">
                        <div class="timeline-line"></div>
                        <div class="timeline-item">
                            <div class="timeline-marker bg-purple-500"></div>
                            <h3 class="text-lg font-bold text-purple-700">1990s: BPM y SOA</h3>
-                           <p class="text-slate-600">La Gestión de Procesos de Negocio (BPM) y la Arquitectura Orientada a Servicios (SOA) introducen la idea de coordinar servicios de software dispares para automatizar flujos de trabajo empresariales.</p>
+                           <p class="text-slate-600">La Gestión de Procesos de Negocio (BPM) y la Arquitectura Orientada a Servicios (SOA) introducen la idea de coordinar servicios de software dispares para automatizar flujos de trabajo empresariales. Aquí, el término "orquestación" comienza a usarse para automatizar y armonizar procesos a través de aplicaciones.</p>
                        </div>
                        <div class="timeline-item">
                            <div class="timeline-marker bg-sky-500"></div>
                            <h3 class="text-lg font-bold text-sky-700">2010s: Orquestación de Contenedores</h3>
-                           <p class="text-slate-600">El auge de los microservicios y la nube lleva a herramientas como Kubernetes, que automatizan el despliegue, escalado y gestión de aplicaciones contenerizadas a gran escala.</p>
+                           <p class="text-slate-600">El auge de los microservicios y la nube lleva a herramientas como Kubernetes, que automatizan el despliegue, escalado y gestión de aplicaciones contenerizadas a gran escala. Esto enseñó a gestionar numerosos servicios independientes.</p>
                        </div>
                        <div class="timeline-item">
                            <div class="timeline-marker bg-amber-500"></div>
                            <h3 class="text-lg font-bold text-amber-700">Hoy: Orquestación de LLMs</h3>
-                           <p class="text-slate-600">Aplica los mismos principios a la IA, gestionando la naturaleza probabilística de los LLMs. Se coordina no solo la ejecución, sino también la calidad, el contexto y la fiabilidad de las respuestas generadas.</p>
+                           <p class="text-slate-600">Aplica los mismos principios a la IA, gestionando la naturaleza probabilística de los LLMs. A diferencia de sus predecesores, debe lidiar con la incertidumbre, exigiendo tareas como verificación de hechos, mitigación de sesgos y refinamiento dinámico de prompts. Es la evolución para ir de "IA que habla" a "IA que hace".</p>
                        </div>
                    </div>
                 </div>
@@ -181,15 +193,15 @@
 
             <section id="integrable-models">
                 <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Modelos y Marcos de Trabajo Integrables</h2>
-                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">La orquestación de LLMs permite la integración de una amplia variedad de modelos y marcos de trabajo, ofreciendo una gran flexibilidad y adaptabilidad.</p>
+                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">La orquestación de LLMs permite la integración de una amplia variedad de modelos y marcos de trabajo, ofreciendo una gran flexibilidad y adaptabilidad. Esto significa que puedes elegir las mejores herramientas para cada parte de tu solución.</p>
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700 text-lg">
-                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Modelos Propietarios (ej. OpenAI, Gemini, Anthropic)</li>
-                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Modelos de Código Abierto (ej. Llama 2, Falcon)</li>
-                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Modelos Ajustados (Fine-tuned) a Datos Propietarios</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Modelos Propietarios (ej. OpenAI GPT-4, Google Gemini, Anthropic Claude)</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Modelos de Código Abierto (ej. Llama 3, Mistral, Falcon)</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Modelos Ajustados (Fine-tuned) a Datos Propietarios (especializados para tu negocio)</li>
                         <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Marcos de Orquestación (ej. LangChain, LlamaIndex, Semantic Kernel, Haystack)</li>
-                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Bases de Datos Vectoriales (ej. Pinecone, Chroma, Weaviate)</li>
-                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>APIs y Herramientas Externas (CRM, ERP, Calculadoras, Búsqueda Web)</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Bases de Datos Vectoriales (ej. Pinecone, Chroma, Weaviate para RAG)</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>APIs y Herramientas Externas (CRM, ERP, Calculadoras, Búsqueda Web, Sistemas Internos)</li>
                     </ul>
                 </div>
             </section>
@@ -218,20 +230,54 @@
             </section>
 
             <section id="use-cases">
-                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Casos de Uso en Acción</h2>
-                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">La orquestación transforma los LLMs de generadores de texto a solucionadores de problemas, habilitando una nueva generación de aplicaciones de IA.</p>
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Casos de Uso en Acción: ¿Dónde Debería Usarse?</h2>
+                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">La orquestación transforma los LLMs de generadores de texto a solucionadores de problemas, habilitando una nueva generación de aplicaciones de IA, especialmente donde se requiere **fiabilidad, precisión y acción**. Es crucial para:</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-lg font-bold mb-2">🤖 Agentes de Razonamiento</h3>
-                        <p class="text-sm text-slate-600">Agentes autónomos que descomponen tareas complejas (ej. análisis financiero) en pasos, usando herramientas como calculadoras o APIs de búsqueda para llegar a una solución.</p>
+                        <h3 class="text-lg font-bold mb-2">🤖 Agentes de Razonamiento y Automatización</h3>
+                        <p class="text-sm text-slate-600 mb-4">Para tareas complejas que requieren **múltiples pasos, lógica condicional y uso de herramientas**.</p>
+                        <button class="toggle-examples-btn bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow transition duration-300 ease-in-out w-full">Ver Ejemplos</button>
+                        <div class="collapsible-content mt-4">
+                            <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                <li><strong>Análisis financiero:</strong> Agente que recupera datos de mercado, usa una calculadora para proyecciones y genera un informe detallado.</li>
+                                <li><strong>Gestión de proyectos:</strong> Agente que interpreta un correo electrónico, crea tareas en Jira, asigna miembros del equipo y envía notificaciones.</li>
+                                <li><strong>Diagnóstico y solución de problemas IT:</strong> Agente que analiza logs, consulta bases de conocimiento, sugiere soluciones y ejecuta comandos de diagnóstico.</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-lg font-bold mb-2">💬 IA Conversacional Avanzada</h3>
-                        <p class="text-sm text-slate-600">Chatbots que mantienen conversaciones contextuales largas, consultan bases de datos de clientes y escalan problemas a los agentes humanos adecuados.</p>
+                        <h3 class="text-lg font-bold mb-2">💬 IA Conversacional Avanzada (Chatbots y Asistentes)</h3>
+                        <p class="text-sm text-slate-600 mb-4">Cuando necesitas **conversaciones largas, contextuales y que involucren información externa**.</p>
+                        <button class="toggle-examples-btn bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow transition duration-300 ease-in-out w-full">Ver Ejemplos</button>
+                        <div class="collapsible-content mt-4">
+                            <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                <li><strong>Soporte al cliente inteligente:</strong> Bot que consulta el historial de compras, verifica el estado del pedido, ofrece reembolsos parciales y escala a un agente humano con el contexto completo.</li>
+                                <li><strong>Asistente de ventas:</strong> Guía al cliente a través de productos, responde preguntas basadas en el inventario actual y cierra la venta integrándose con el CRM.</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-lg font-bold mb-2">📝 Generación Aumentada (RAG)</h3>
-                        <p class="text-sm text-slate-600">Permite a los LLMs responder preguntas usando conocimiento propietario y actualizado, citando fuentes para mayor fiabilidad y evitando alucinaciones.</p>
+                        <h3 class="text-lg font-bold mb-2">📝 Generación Aumentada por Recuperación (RAG)</h3>
+                        <p class="text-sm text-slate-600 mb-4">Fundamental para **respuestas precisas y verificables basadas en conocimiento propietario o actualizado**.</p>
+                        <button class="toggle-examples-btn bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow transition duration-300 ease-in-out w-full">Ver Ejemplos</button>
+                        <div class="collapsible-content mt-4">
+                            <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                <li><strong>Generación de respuestas legales:</strong> Un LLM que accede a bases de datos de jurisprudencia y documentos internos para citar leyes y casos relevantes.</li>
+                                <li><strong>Manuales de empresa:</strong> Un sistema que responde preguntas de empleados usando la documentación interna de la compañía, evitando alucinaciones.</li>
+                                <li><strong>Análisis de investigación científica:</strong> Resume y extrae datos de miles de papers científicos, citando las fuentes originales.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 md:col-span-1 lg:col-span-3">
+                        <h3 class="text-lg font-bold mb-2">📈 Análisis de Datos y Generación de Insights</h3>
+                        <p class="text-sm text-slate-600 mb-4">Para transformar datos crudos en **insights accionables y narrativas**.</p>
+                        <button class="toggle-examples-btn bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow transition duration-300 ease-in-out w-full">Ver Ejemplos</button>
+                        <div class="collapsible-content mt-4">
+                            <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                <li><strong>Generación de informes de negocio:</strong> Un sistema que toma datos de ventas, marketing y finanzas de diferentes bases de datos, los analiza, genera gráficos y escribe un resumen ejecutivo.</li>
+                                <li><strong>Análisis de sentimiento de clientes:</strong> Procesa millones de reseñas, identifica tendencias, clasifica el sentimiento y sugiere mejoras de producto o servicio.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -312,27 +358,22 @@
     outputDiv.innerHTML = '&lt;p class="text-slate-500 text-center"&gt;Procesando...&lt;/p&gt;';
 
     try {
-        let chatHistory = [];
-        chatHistory.push({ role: "user", parts: [{ text: `Dada la siguiente solicitud, determina si es una solicitud de resumen. Responde solo con 'RESUMEN' si lo es, o 'OTRO' si no lo es: "${prompt}"` }] });
-        const payload = { contents: chatHistory };
-        const apiKey = "";
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-        const result = await response.json();
         let taskIdentified = "OTRO";
-        if (result.candidates && result.candidates.length > 0 &&
-            result.candidates[0].content && result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0) {
-            taskIdentified = result.candidates[0].content.parts[0].text.trim().toUpperCase();
+        // Simulación de una llamada a LLM
+        // En un entorno real, esta sería una llamada a la API de Gemini (o similar)
+        // Ejemplo:
+        // const apiKey = "";
+        // const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+        // const response = await fetch(apiUrl, { ... });
+        // const result = await response.json();
+        // taskIdentified = result.candidates[0].content.parts[0].text.trim().toUpperCase();
+
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Simula un retraso de la API
+
+        if (prompt.toLowerCase().includes("resumen")) {
+            taskIdentified = 'RESUMEN';
         } else {
-            console.error("Error: Estructura de respuesta inesperada del LLM.");
-            outputDiv.innerHTML = '&lt;p class="text-red-500 text-center"&gt;Error al procesar la solicitud con el LLM.&lt;/p&gt;';
-            return;
+            taskIdentified = 'OTRO';
         }
 
         let finalResult = '';
@@ -381,27 +422,13 @@
             outputDiv.innerHTML = '<p class="text-slate-500 text-center">Procesando...</p>';
 
             try {
-                let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: `Dada la siguiente solicitud, determina si es una solicitud de resumen. Responde solo con 'RESUMEN' si lo es, o 'OTRO' si no lo es: "${prompt}"` }] });
-                const payload = { contents: chatHistory };
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await response.json();
                 let taskIdentified = "OTRO";
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    taskIdentified = result.candidates[0].content.parts[0].text.trim().toUpperCase();
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                if (prompt.toLowerCase().includes("resumen")) {
+                    taskIdentified = 'RESUMEN';
                 } else {
-                    console.error("Error: Estructura de respuesta inesperada del LLM.");
-                    outputDiv.innerHTML = '<p class="text-red-500 text-center">Error al procesar la solicitud con el LLM.</p>';
-                    return;
+                    taskIdentified = 'OTRO';
                 }
 
                 let finalResult = '';
@@ -609,6 +636,18 @@
                     orchestrateLLMInteraction(examplePrompt);
                 });
             }
+
+            document.querySelectorAll('.toggle-examples-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    content.classList.toggle('active');
+                    if (content.classList.contains('active')) {
+                        button.textContent = 'Ocultar Ejemplos';
+                    } else {
+                        button.textContent = 'Ver Ejemplos';
+                    }
+                });
+            });
         });
     </script>
 </body>
