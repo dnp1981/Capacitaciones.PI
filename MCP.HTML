@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Desmitificando la Orquestación de LLMs (MCP)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F2F5;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-step {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            text-align: center;
+            min-height: 80px;
+        }
+        .flowchart-arrow {
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .flowchart-arrow {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2.5rem;
+                color: #00BFFF;
+                font-weight: bold;
+            }
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2.5rem;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            border: 4px solid #F0F2F5;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 9px;
+            top: 24px;
+            width: 2px;
+            height: 100%;
+            background-color: #CBD5E1;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black text-slate-800">Desmitificando la Orquestación de LLMs</h1>
+            <p class="text-lg md:text-xl text-slate-500 mt-4 max-w-3xl mx-auto">Una guía visual para entender cómo transformar LLMs en aplicaciones de IA robustas, escalables y listas para producción.</p>
+        </header>
+
+        <main class="space-y-16">
+            <section id="what-it-is" class="text-center">
+                 <h2 class="text-3xl font-bold text-slate-800 mb-4">¿Qué es la Orquestación de LLM?</h2>
+                 <p class="max-w-3xl mx-auto text-slate-600 mb-8">
+                    Es el cerebro de una aplicación de IA. Actúa como un director de orquesta, coordinando múltiples LLMs, herramientas y fuentes de datos para ejecutar tareas complejas. Transforma capacidades generativas potentes en soluciones de negocio fiables.
+                </p>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">El Orquestador como Centro de Control</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-around space-y-4 md:space-y-0 md:space-x-4 text-center">
+                        <div class="p-4 bg-sky-100 text-sky-800 rounded-lg w-40">
+                            <span class="text-3xl">🗃️</span>
+                            <p class="font-bold mt-2">Fuentes de Datos</p>
+                        </div>
+                        <div class="text-5xl text-slate-400 font-thin hidden md:block">→</div>
+                        <div class="p-6 bg-blue-500 text-white rounded-full shadow-2xl w-48 h-48 flex flex-col items-center justify-center">
+                             <span class="text-4xl">🎼</span>
+                            <p class="text-xl font-black">ORQUESTADOR</p>
+                            <p class="text-sm">(MCP)</p>
+                        </div>
+                        <div class="text-5xl text-slate-400 font-thin">→</div>
+                        <div class="p-4 bg-amber-100 text-amber-800 rounded-lg w-40">
+                             <span class="text-3xl">🛠️</span>
+                            <p class="font-bold mt-2">Herramientas & APIs</p>
+                        </div>
+                         <div class="text-5xl text-slate-400 font-thin hidden md:block">→</div>
+                         <div class="p-4 bg-purple-100 text-purple-800 rounded-lg w-40">
+                             <span class="text-3xl">🤖</span>
+                            <p class="font-bold mt-2">Múltiples LLMs</p>
+                        </div>
+                    </div>
+                     <p class="mt-6 text-slate-600">El orquestador gestiona el flujo de información y acciones entre todos los componentes para producir un resultado coherente y útil.</p>
+                </div>
+            </section>
+
+            <section id="why">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">¿Por Qué es Indispensable? Superando Limitaciones</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
+                        <h3 class="text-xl font-bold mb-4">LLM Autónomo (Limitado)</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-red-500 mr-3 text-xl">❌</span><span><strong class="text-slate-800">Sin Memoria a Largo Plazo:</strong> Olvida interacciones pasadas en una conversación.</span></li>
+                            <li class="flex items-start"><span class="text-red-500 mr-3 text-xl">❌</span><span><strong class="text-slate-800">Propenso a Alucinaciones:</strong> No puede verificar hechos por sí mismo y puede inventar información.</span></li>
+                            <li class="flex items-start"><span class="text-red-500 mr-3 text-xl">❌</span><span><strong class="text-slate-800">Razonamiento Simple:</strong> Dificultad para resolver problemas complejos de múltiples pasos.</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+                        <h3 class="text-xl font-bold mb-4">Sistema Orquestado (Potenciado)</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-green-500 mr-3 text-xl">✅</span><span><strong class="text-slate-800">Gestión de Estado:</strong> Mantiene el contexto a lo largo de las interacciones para conversaciones coherentes.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 mr-3 text-xl">✅</span><span><strong class="text-slate-800">Acceso a Datos (RAG):</strong> Conecta con bases de conocimiento para dar respuestas basadas en hechos.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 mr-3 text-xl">✅</span><span><strong class="text-slate-800">Encadenamiento (Chaining):</strong> Divide problemas complejos en tareas secuenciales y las asigna a la herramienta/modelo correcto.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="components">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Componentes Clave de un Orquestador</h2>
+                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">Un sistema de orquestación equilibra múltiples tareas operacionales para garantizar un rendimiento eficiente, fiable y rentable. Cada componente es vital para el funcionamiento del conjunto.</p>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="chart-container h-[400px] md:h-[450px]">
+                        <canvas id="componentsRadarChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="evolution">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">La Evolución de la Orquestación</h2>
+                 <p class="text-center max-w-3xl mx-auto text-slate-600 mb-4">La orquestación de LLMs no surgió de la nada. Es el siguiente paso en una larga historia de abstracción y coordinación de sistemas complejos en la computación. No fue inventada por una única persona, sino que evolucionó a partir de las prácticas de gestión de procesos y la orquestación de servicios y contenedores.</p>
+                <div class="bg-white rounded-lg shadow-md p-8">
+                   <div class="relative">
+                       <div class="timeline-line"></div>
+                       <div class="timeline-item">
+                           <div class="timeline-marker bg-purple-500"></div>
+                           <h3 class="text-lg font-bold text-purple-700">1990s: BPM y SOA</h3>
+                           <p class="text-slate-600">La Gestión de Procesos de Negocio (BPM) y la Arquitectura Orientada a Servicios (SOA) introducen la idea de coordinar servicios de software dispares para automatizar flujos de trabajo empresariales.</p>
+                       </div>
+                       <div class="timeline-item">
+                           <div class="timeline-marker bg-sky-500"></div>
+                           <h3 class="text-lg font-bold text-sky-700">2010s: Orquestación de Contenedores</h3>
+                           <p class="text-slate-600">El auge de los microservicios y la nube lleva a herramientas como Kubernetes, que automatizan el despliegue, escalado y gestión de aplicaciones contenerizadas a gran escala.</p>
+                       </div>
+                       <div class="timeline-item">
+                           <div class="timeline-marker bg-amber-500"></div>
+                           <h3 class="text-lg font-bold text-amber-700">Hoy: Orquestación de LLMs</h3>
+                           <p class="text-slate-600">Aplica los mismos principios a la IA, gestionando la naturaleza probabilística de los LLMs. Se coordina no solo la ejecución, sino también la calidad, el contexto y la fiabilidad de las respuestas generadas.</p>
+                       </div>
+                   </div>
+                </div>
+            </section>
+
+            <section id="integrable-models">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Modelos y Marcos de Trabajo Integrables</h2>
+                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">La orquestación de LLMs permite la integración de una amplia variedad de modelos y marcos de trabajo, ofreciendo una gran flexibilidad y adaptabilidad.</p>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700 text-lg">
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Modelos Propietarios (ej. OpenAI, Gemini, Anthropic)</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Modelos de Código Abierto (ej. Llama 2, Falcon)</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Modelos Ajustados (Fine-tuned) a Datos Propietarios</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Marcos de Orquestación (ej. LangChain, LlamaIndex, Semantic Kernel, Haystack)</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>Bases de Datos Vectoriales (ej. Pinecone, Chroma, Weaviate)</li>
+                        <li class="flex items-center"><span class="text-sky-500 mr-2 text-2xl">🔹</span>APIs y Herramientas Externas (CRM, ERP, Calculadoras, Búsqueda Web)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="pros-cons">
+                 <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Análisis de Ventajas y Desafíos</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4 text-green-600">Ventajas Clave</h3>
+                        <p class="text-slate-600 mb-4">La orquestación desbloquea el potencial de los LLMs para aplicaciones empresariales serias, mejorando drásticamente su utilidad y fiabilidad.</p>
+                        <div class="chart-container h-80">
+                            <canvas id="advantagesBarChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4 text-red-600">Desafíos a Considerar</h3>
+                        <p class="text-slate-600 mb-4">A pesar de sus beneficios, la implementación de la orquestación introduce nuevas capas de complejidad que deben ser gestionadas cuidadosamente.</p>
+                        <ul class="space-y-4 mt-6">
+                           <li class="flex items-center"><span class="text-2xl mr-4">🤯</span><div><strong class="text-slate-800">Mayor Complejidad:</strong> Requiere una arquitectura y despliegue más sofisticados.</div></li>
+                           <li class="flex items-center"><span class="text-2xl mr-4">🔒</span><div><strong class="text-slate-800">Acoplamiento a Proveedores:</strong> Riesgo de "vendor lock-in" con ciertos marcos.</div></li>
+                           <li class="flex items-center"><span class="text-2xl mr-4">🧩</span><div><strong class="text-slate-800">Gestión de Contexto:</strong> La interoperabilidad y la estandarización son aún un desafío.</div></li>
+                           <li class="flex items-center"><span class="text-2xl mr-4">🛡️</span><div><strong class="text-slate-800">Riesgos de Seguridad:</strong> El acceso de agentes a herramientas externas debe ser monitorizado.</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="use-cases">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Casos de Uso en Acción</h2>
+                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">La orquestación transforma los LLMs de generadores de texto a solucionadores de problemas, habilitando una nueva generación de aplicaciones de IA.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-bold mb-2">🤖 Agentes de Razonamiento</h3>
+                        <p class="text-sm text-slate-600">Agentes autónomos que descomponen tareas complejas (ej. análisis financiero) en pasos, usando herramientas como calculadoras o APIs de búsqueda para llegar a una solución.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-bold mb-2">💬 IA Conversacional Avanzada</h3>
+                        <p class="text-sm text-slate-600">Chatbots que mantienen conversaciones contextuales largas, consultan bases de datos de clientes y escalan problemas a los agentes humanos adecuados.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-bold mb-2">📝 Generación Aumentada (RAG)</h3>
+                        <p class="text-sm text-slate-600">Permite a los LLMs responder preguntas usando conocimiento propietario y actualizado, citando fuentes para mayor fiabilidad y evitando alucinaciones.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="architecture">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">¿Qué Arquitectura Elegir?</h2>
+                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">La elección del patrón arquitectónico depende de la escala, complejidad y necesidades de tu aplicación. La orquestación es el "pegamento" que une estos patrones.</p>
+                <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-100 text-slate-600 uppercase">
+                            <tr>
+                                <th class="p-4 font-semibold">Patrón</th>
+                                <th class="p-4 font-semibold">Descripción</th>
+                                <th class="p-4 font-semibold">Mejor Para</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-sky-700">Microservicios</td>
+                                <td class="p-4">Cada componente (prompting, inferencia, etc.) es un servicio independiente.</td>
+                                <td class="p-4">Aplicaciones a gran escala que requieren alta escalabilidad y tolerancia a fallos.</td>
+                            </tr>
+                             <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-purple-700">Pipeline</td>
+                                <td class="p-4">Estructura el flujo como una secuencia de etapas (limpieza, inferencia, formato).</td>
+                                <td class="p-4">Flujos de trabajo complejos y predecibles como el resumen de documentos.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-amber-700">Adaptador</td>
+                                <td class="p-4">Integra LLMs con sistemas legados (ej. un CRM) sin una re-arquitectura completa.</td>
+                                <td class="p-4">Modernización gradual de sistemas existentes con capacidades de IA.</td>
+                            </tr>
+                             <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-bold text-red-700">Monolítico</td>
+                                <td class="p-4">Toda la aplicación se ejecuta como una única unidad.</td>
+                                <td class="p-4">Prototipos rápidos y aplicaciones a muy pequeña escala.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="how-to">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Implementación y Pruebas</h2>
+                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">Incorporar y validar un sistema orquestado es un proceso cíclico que requiere un diseño cuidadoso y una evaluación continua para garantizar la calidad y la fiabilidad.</p>
+                <div class="bg-white rounded-lg shadow-md p-8">
+                    <h3 class="text-xl font-bold mb-6 text-center">Flujo de Implementación Simplificado</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">
+                        <div class="flowchart-step bg-sky-100 text-sky-800 border-l-4 border-sky-500"><strong>1.</strong>&nbsp;Definir Caso de Uso</div>
+                        <div class="flowchart-arrow">›</div>
+                        <div class="flowchart-step bg-purple-100 text-purple-800 border-l-4 border-purple-500"><strong>2.</strong>&nbsp;Planificar Arquitectura</div>
+                        <div class="flowchart-arrow">›</div>
+                        <div class="flowchart-step bg-amber-100 text-amber-800 border-l-4 border-amber-500"><strong>3.</strong>&nbsp;Integrar Componentes</div>
+                        <div class="flowchart-arrow">›</div>
+                        <div class="flowchart-step bg-lime-100 text-lime-800 border-l-4 border-lime-500"><strong>4.</strong>&nbsp;Diseñar Flujo de Tareas</div>
+                        <div class="flowchart-arrow">›</div>
+                        <div class="flowchart-step bg-red-100 text-red-800 border-l-4 border-red-500"><strong>5.</strong>&nbsp;Probar y Monitorizar</div>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+                        <h3 class="text-xl font-bold mb-4 text-center">Métricas de Prueba Fundamentales</h3>
+                        <p class="text-slate-600 mb-4 text-center">Las pruebas van más allá de la corrección funcional; deben asegurar un comportamiento responsable y fiable del modelo.</p>
+                        <div class="chart-container h-80">
+                            <canvas id="testingBarChart"></canvas>
+                        </div>
+                    </div>
+            </section>
+
+            <section id="llm-integration-example">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Integración de LLMs: Un Ejemplo Práctico</h2>
+                <p class="text-center max-w-3xl mx-auto text-slate-600 mb-8">Este ejemplo demuestra cómo un orquestador podría usar un LLM para identificar una tarea y luego llamar a una "herramienta" (simulada) para realizar una acción basada en esa identificación.</p>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-center">Código de Ejemplo (JavaScript)</h3>
+                    <div id="llm-integration-code-container" class="bg-slate-800 text-white rounded-md p-4 overflow-x-auto text-sm">
+<pre><code>async function orchestrateLLMInteraction(prompt) {
+    const outputDiv = document.getElementById('llm-example-output');
+    outputDiv.innerHTML = '&lt;p class="text-slate-500 text-center"&gt;Procesando...&lt;/p&gt;';
+
+    try {
+        let chatHistory = [];
+        chatHistory.push({ role: "user", parts: [{ text: `Dada la siguiente solicitud, determina si es una solicitud de resumen. Responde solo con 'RESUMEN' si lo es, o 'OTRO' si no lo es: "${prompt}"` }] });
+        const payload = { contents: chatHistory };
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        let taskIdentified = "OTRO";
+        if (result.candidates && result.candidates.length > 0 &&
+            result.candidates[0].content && result.candidates[0].content.parts &&
+            result.candidates[0].content.parts.length > 0) {
+            taskIdentified = result.candidates[0].content.parts[0].text.trim().toUpperCase();
+        } else {
+            console.error("Error: Estructura de respuesta inesperada del LLM.");
+            outputDiv.innerHTML = '&lt;p class="text-red-500 text-center"&gt;Error al procesar la solicitud con el LLM.&lt;/p&gt;';
+            return;
+        }
+
+        let finalResult = '';
+        if (taskIdentified === 'RESUMEN') {
+            finalResult = `Tarea identificada: RESUMEN. Se activa la herramienta de resumen para "${prompt}". &lt;br&gt; &lt;em&gt;(Resultado simulado: "Breve síntesis de tu solicitud.")&lt;/em&gt;`;
+        } else {
+            finalResult = `Tarea identificada: OTRO. Se proporciona una respuesta general para "${prompt}". &lt;br&gt; &lt;em&gt;(Resultado simulado: "No es una tarea de resumen. Por favor, especifica más.")&lt;/em&gt;`;
+        }
+        outputDiv.innerHTML = `&lt;p class="text-slate-700 text-left"&gt;&lt;strong&gt;Solicitud:&lt;/strong&gt; "${prompt}"&lt;/p&gt;&lt;p class="text-slate-700 text-left"&gt;&lt;strong&gt;Resultado del Orquestador:&lt;/strong&gt; ${finalResult}&lt;/p&gt;`;
+
+    } catch (error) {
+        console.error("Error en la orquestación:", error);
+        outputDiv.innerHTML = '&lt;p class="text-red-500 text-center"&gt;Se produjo un error durante la orquestación.&lt;/p&gt;';
+    }
+}</code></pre>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button id="runLLMExample" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow transition duration-300 ease-in-out mr-4">
+                            Ejecutar Ejemplo de Resumen
+                        </button>
+                         <button id="runComplexLLMExample" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg shadow transition duration-300 ease-in-out">
+                            Ejecutar Ejemplo Complejo
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-4 text-center">Resultado del Ejemplo</h3>
+                    <div id="llm-example-output" class="min-h-[100px] flex items-center justify-center p-4 bg-slate-50 rounded-md border border-slate-200 text-slate-700">
+                        <p class="text-slate-500">Haz clic en "Ejecutar Ejemplo" para ver el resultado.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 pt-8 border-t border-slate-200">
+            <p class="text-2xl font-bold text-slate-800">Conclusión Clave</p>
+            <p class="text-slate-600 mt-2 max-w-3xl mx-auto">La orquestación de LLMs es el puente entre el potencial de la IA generativa y su valor real en producción. Es la disciplina que nos permite construir, no solo modelos que hablan, sino sistemas que <strong class="text-sky-600">resuelven, actúan y entregan resultados de negocio</strong> de manera fiable y escalable.</p>
+        </footer>
+
+    </div>
+    <script>
+        async function orchestrateLLMInteraction(prompt) {
+            const outputDiv = document.getElementById('llm-example-output');
+            outputDiv.innerHTML = '<p class="text-slate-500 text-center">Procesando...</p>';
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Dada la siguiente solicitud, determina si es una solicitud de resumen. Responde solo con 'RESUMEN' si lo es, o 'OTRO' si no lo es: "${prompt}"` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                let taskIdentified = "OTRO";
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    taskIdentified = result.candidates[0].content.parts[0].text.trim().toUpperCase();
+                } else {
+                    console.error("Error: Estructura de respuesta inesperada del LLM.");
+                    outputDiv.innerHTML = '<p class="text-red-500 text-center">Error al procesar la solicitud con el LLM.</p>';
+                    return;
+                }
+
+                let finalResult = '';
+                if (taskIdentified === 'RESUMEN') {
+                    finalResult = `Tarea identificada: RESUMEN. Se activa la herramienta de resumen para "${prompt}". <br> <em>(Resultado simulado: "Breve síntesis de tu solicitud.")</em>`;
+                } else {
+                    finalResult = `Tarea identificada: OTRO. Se proporciona una respuesta general para "${prompt}". <br> <em>(Resultado simulado: "No es una tarea de resumen. Por favor, especifica más.")</em>`;
+                }
+                outputDiv.innerHTML = `<p class="text-slate-700 text-left"><strong>Solicitud:</strong> "${prompt}"</p><p class="text-slate-700 text-left"><strong>Resultado del Orquestador:</strong> ${finalResult}</p>`;
+
+            } catch (error) {
+                console.error("Error en la orquestación:", error);
+                outputDiv.innerHTML = '<p class="text-red-500 text-center">Se produjo un error durante la orquestación.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const wrapLabel = (label, maxWidth = 16) => {
+                if (typeof label !== 'string' || label.length <= maxWidth) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > maxWidth) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine) {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            };
+
+            const commonTooltipCallback = {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    }
+                    return label;
+                }
+            };
+            
+            const COLORS = {
+                sky: '#00BFFF',
+                gold: '#FFD700',
+                tomato: '#FF6347',
+                lime: '#32CD32',
+                purple: '#9370DB',
+                orange: '#FFA500'
+            };
+
+            const componentsRadarCtx = document.getElementById('componentsRadarChart')?.getContext('2d');
+            if (componentsRadarCtx) {
+                const radarLabels = [
+                    'Gestión de Prompts', 
+                    'Gestión de Recursos', 
+                    'Gestión de Datos', 
+                    'Gestión de Estado (Memoria)', 
+                    'Manejo de Errores', 
+                    'Selección de Modelos'
+                ].map(label => wrapLabel(label));
+                
+                new Chart(componentsRadarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: radarLabels,
+                        datasets: [{
+                            label: 'Nivel de Importancia',
+                            data: [9, 8, 8, 9, 7, 8.5],
+                            backgroundColor: 'rgba(0, 191, 255, 0.2)',
+                            borderColor: COLORS.sky,
+                            pointBackgroundColor: COLORS.sky,
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: COLORS.sky
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: commonTooltipCallback
+                            }
+                        },
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                pointLabels: {
+                                    font: {
+                                        size: 12,
+                                        weight: 'bold'
+                                    },
+                                    color: '#334155'
+                                },
+                                ticks: {
+                                    backdropColor: 'transparent',
+                                    stepSize: 2
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const advantagesBarCtx = document.getElementById('advantagesBarChart')?.getContext('2d');
+            if (advantagesBarCtx) {
+                new Chart(advantagesBarCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Eficiencia', 'Gobernanza', 'Fiabilidad', 'Ahorro', 'Flexibilidad'],
+                        datasets: [{
+                            label: 'Impacto',
+                            data: [90, 88, 85, 75, 80],
+                            backgroundColor: [COLORS.sky, COLORS.lime, COLORS.purple, COLORS.gold, COLORS.orange],
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: {
+                                    display: false
+                                },
+                                max: 100
+                            },
+                            y: {
+                                 grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const testingBarCtx = document.getElementById('testingBarChart')?.getContext('2d');
+            if(testingBarCtx) {
+                const testingLabels = ['Corrección Funcional', 'Mitigación de Alucinaciones', 'Seguridad y PII', 'Similitud Semántica', 'Mitigación de Sesgos'].map(l => wrapLabel(l));
+                new Chart(testingBarCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: testingLabels,
+                        datasets: [{
+                            label: 'Prioridad de Prueba',
+                            data: [95, 90, 100, 80, 85],
+                            backgroundColor: [COLORS.sky, COLORS.gold, COLORS.tomato, COLORS.purple, COLORS.lime],
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: commonTooltipCallback }
+                        },
+                         scales: {
+                            x: {
+                                grid: { display: false }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                grid: { color: 'rgba(0,0,0,0.05)' }
+                            }
+                        }
+                    }
+                });
+            }
+        
+            const runExampleBtn = document.getElementById('runLLMExample');
+            if (runExampleBtn) {
+                runExampleBtn.addEventListener('click', () => {
+                    const examplePrompt = "Necesito un resumen de este documento.";
+                    orchestrateLLMInteraction(examplePrompt);
+                });
+            }
+
+            const runComplexExampleBtn = document.getElementById('runComplexLLMExample');
+            if (runComplexExampleBtn) {
+                runComplexExampleBtn.addEventListener('click', () => {
+                    const examplePrompt = "¿Cuál es la capital de Francia y qué servicios ofrece su aeropuerto principal?";
+                    orchestrateLLMInteraction(examplePrompt);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

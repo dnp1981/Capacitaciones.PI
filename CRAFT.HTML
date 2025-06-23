@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía del Marco de Trabajo CRAFT para la Integración de IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2rem; /* Increased padding */
+            margin-bottom: 2.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            min-height: 140px;
+            flex: 1;
+            cursor: pointer; /* Make it clickable */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .flow-step:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+        }
+        .flow-arrow-horizontal {
+            font-size: 3rem;
+            color: #7a5195;
+            margin: 0 0.5rem;
+            line-height: 1;
+        }
+        .flow-arrow-vertical {
+            font-size: 3rem;
+            color: #7a5195;
+            margin: 1rem 0;
+            line-height: 1;
+        }
+        .flow-loop-arrow {
+            font-size: 2.5rem;
+            color: #bc5090;
+            margin-top: 1rem;
+            transform: rotate(90deg);
+            line-height: 1;
+        }
+
+        /* Modal specific styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b7280;
+            line-height: 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-12 md:mb-16">
+            <h1 class="text-4xl md:text-6xl font-black text-[#003f5c] mb-4 text-shadow">El Marco de Trabajo CRAFT</h1>
+            <p class="text-xl md:text-2xl text-[#374c80] max-w-3xl mx-auto">Una Guía Estratégica de Rachel Woods para Sistematizar la Integración de la IA y Pasar del Caos a la Claridad.</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <section class="md:col-span-2 card bg-gradient-to-br from-[#003f5c] to-[#374c80] text-white">
+                <h2 class="text-3xl font-bold text-center mb-6">El Desafío de la Integración de la IA</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="text-center">
+                        <p class="text-7xl md:text-8xl font-black text-[#ffa600] text-shadow">75%</p>
+                        <p class="text-lg mt-2">de las iniciativas de IA fracasan sin un marco estructurado, lo que lleva a un desperdicio de recursos y oportunidades perdidas.</p>
+                    </div>
+                    <div class="max-w-lg text-center md:text-left">
+                        <p class="text-lg">Muchas organizaciones se sumergen en la IA de forma caótica, sin una mentalidad "centrada en la IA". Esto resulta en implementaciones fallidas y una incapacidad para obtener un ROI significativo. El Marco CRAFT proporciona el camino estructurado necesario para el éxito.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="md:col-span-2 card">
+                <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Visualizando el Ciclo CRAFT</h2>
+                <p class="text-center mt-6 text-lg text-gray-600 mb-8">Un ciclo de 5 pasos para transformar cualquier proceso de negocio en un flujo de trabajo de IA eficiente y escalable.</p>
+
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div id="craft-C" class="flow-step bg-[#003f5c] text-white w-full md:w-1/5">
+                        <span class="font-bold text-3xl mb-2">C</span>
+                        <p>Cuadro Claro</p>
+                    </div>
+                    <div class="hidden md:block flow-arrow-horizontal">&rarr;</div>
+                    <div class="md:hidden flow-arrow-vertical">&darr;</div>
+                    <div id="craft-R" class="flow-step bg-[#374c80] text-white w-full md:w-1/5">
+                        <span class="font-bold text-3xl mb-2">R</span>
+                        <p>Diseño Realista</p>
+                    </div>
+                    <div class="hidden md:block flow-arrow-horizontal">&rarr;</div>
+                    <div class="md:hidden flow-arrow-vertical">&darr;</div>
+                    <div id="craft-A" class="flow-step bg-[#7a5195] text-white w-full md:w-1/5">
+                        <span class="font-bold text-3xl mb-2">A</span>
+                        <p>Implementación Real</p>
+                    </div>
+                    <div class="hidden md:block flow-arrow-horizontal">&rarr;</div>
+                    <div class="md:hidden flow-arrow-vertical">&darr;</div>
+                    <div id="craft-T" class="flow-step bg-[#ff764a] text-white w-full md:w-1/5">
+                        <span class="font-bold text-3xl mb-2">T</span>
+                        <p>Implementación en Equipo</p>
+                    </div>
+                    <div class="hidden md:block flow-arrow-horizontal">&rarr;</div>
+                    <div class="md:hidden flow-arrow-vertical">&darr;</div>
+                    <div id="craft-F" class="flow-step bg-[#bc5090] text-white w-full md:w-1/5">
+                        <span class="font-bold text-3xl mb-2">F</span>
+                        <p>Bucle de Retroalimentación</p>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-6">
+                    <span class="flow-loop-arrow">&#8635;</span>
+                    <p class="ml-2 text-lg text-gray-600">Iteración Continua</p>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2 class="text-2xl font-bold text-[#003f5c] mb-4">Desglose de Fases del Proyecto</h2>
+                <p class="mb-4 text-gray-600">El ciclo CRAFT distribuye el esfuerzo a lo largo de fases iterativas, priorizando la planificación y el refinamiento continuo para garantizar el éxito y la alineación con los objetivos del negocio.</p>
+                <div class="chart-container">
+                    <canvas id="effortChart"></canvas>
+                </div>
+            </section>
+            
+            <section class="card">
+                <h2 class="text-2xl font-bold text-[#003f5c] mb-4">Impacto Medible: Antes y Después de CRAFT</h2>
+                 <p class="mb-4 text-gray-600">La implementación de un marco estructurado como CRAFT tiene un impacto directo y positivo en los indicadores clave de rendimiento, transformando la eficiencia y la eficacia del equipo.</p>
+                <div class="chart-container">
+                    <canvas id="impactChart"></canvas>
+                </div>
+            </section>
+            
+            <section class="md:col-span-2 card">
+                <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Pilares para una Implementación Exitosa</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="p-4 border-2 border-[#7a5195] rounded-lg">
+                        <div class="text-5xl mb-4 text-[#7a5195]">&#129504;</div>
+                        <h3 class="text-xl font-bold mb-2">Mentalidad Centrada en la IA</h3>
+                        <p class="text-gray-600">Fomentar una cultura que comprenda y adopte la IA. Comienza con la alfabetización básica en IA y la capacitación en la escritura de prompts antes de introducir sistemas complejos.</p>
+                    </div>
+                    <div class="p-4 border-2 border-[#bc5090] rounded-lg">
+                        <div class="text-5xl mb-4 text-[#bc5090]">&#128172;</div>
+                        <h3 class="text-xl font-bold mb-2">Prompts Claros y Datos Estructurados</h3>
+                        <p class="text-gray-600">La calidad de la salida de la IA depende de la calidad de la entrada. Definir claramente los procesos, entradas y resultados deseados es fundamental para el éxito.</p>
+                    </div>
+                    <div class="p-4 border-2 border-[#ef5675] rounded-lg">
+                         <div class="text-5xl mb-4 text-[#ef5675]">&#128101;</div>
+                        <h3 class="text-xl font-bold mb-2">Roles Dedicados a la IA</h3>
+                        <p class="text-gray-600">Asignar roles críticos como el Visionario de IA, el Operador de IA y el Implementador de IA acelera el progreso y asegura la responsabilidad y la experiencia en el proceso.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="md:col-span-2 card bg-[#003f5c] text-white text-center">
+                 <h2 class="text-3xl font-bold mb-4">Transforma tu Negocio. Conviértete en una Organización Centrada en la IA.</h2>
+                 <p class="text-lg">El Ciclo CRAFT no es una implementación única, sino una filosofía operativa continua. Es la clave para desbloquear el potencial humano, impulsar la innovación y construir una ventaja competitiva sostenible en el futuro.</p>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="craftModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-button" onclick="closeModal()">&times;</button>
+            <h3 id="modalTitle" class="text-3xl font-bold text-[#003f5c] mb-4"></h3>
+            <p id="modalContent" class="text-gray-700 leading-relaxed"></p>
+        </div>
+    </div>
+
+    <script>
+        function wrapLabel(str, maxWidth) {
+            if (typeof str !== 'string' || str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split(' ');
+            let lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length <= maxWidth) {
+                    currentLine += word + ' ';
+                } else {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                }
+            }
+            lines.push(currentLine.trim());
+            return lines.filter(line => line.length > 0);
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const sharedChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#003f5c',
+                        font: {
+                            size: 14,
+                            family: 'Inter'
+                        }
+                    },
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    backgroundColor: '#003f5c',
+                    titleFont: {
+                        size: 16,
+                        family: 'Inter'
+                    },
+                    bodyFont: {
+                        size: 14,
+                        family: 'Inter'
+                    },
+                    padding: 12
+                }
+            },
+            scales: {
+                y: {
+                    ticks: { 
+                        color: '#374c80',
+                        font: { family: 'Inter' }
+                    },
+                    grid: { color: '#e0e6f0' }
+                },
+                x: {
+                    ticks: { 
+                        color: '#374c80',
+                        font: { family: 'Inter' }
+                    },
+                    grid: { color: '#e0e6f0' }
+                }
+            }
+        };
+
+        const effortData = {
+            labels: [
+                wrapLabel('C: Cuadro Claro', 10), /* Adjusted maxWidth */
+                wrapLabel('R: Diseño Realista', 10), /* Adjusted maxWidth */
+                wrapLabel('A: Implementación Real', 10), /* Adjusted maxWidth */
+                wrapLabel('F: Bucle de Retroalimentación', 10), /* Adjusted maxWidth */
+                wrapLabel('T: Implementación en Equipo', 10) /* Adjusted maxWidth */
+            ],
+            datasets: [{
+                label: 'Distribución del Esfuerzo del Proyecto',
+                data: [15, 15, 30, 25, 15],
+                backgroundColor: [
+                    '#003f5c',
+                    '#374c80',
+                    '#7a5195',
+                    '#bc5090',
+                    '#ef5675'
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        new Chart(document.getElementById('effortChart'), {
+            type: 'doughnut',
+            data: effortData,
+            options: {
+                ...sharedChartOptions,
+                cutout: '70%',
+                scales: {
+                   y: { display: false },
+                   x: { display: false }
+                }
+            }
+        });
+        
+        const impactData = {
+            labels: ['Tasa de Éxito del Proyecto', 'Productividad del Equipo', 'Tiempo de Valorización'],
+            datasets: [
+                {
+                    label: 'Antes de CRAFT',
+                    data: [25, 60, 20],
+                    backgroundColor: '#ff764a',
+                    borderColor: '#ff764a',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Después de CRAFT',
+                    data: [85, 90, 75],
+                    backgroundColor: '#7a5195',
+                    borderColor: '#7a5195',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        new Chart(document.getElementById('impactChart'), {
+            type: 'bar',
+            data: impactData,
+            options: {
+                ...sharedChartOptions,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) { return value + "%" },
+                            color: '#374c80',
+                            font: { family: 'Inter' }
+                        },
+                         grid: { color: '#e0e6f0' }
+                    },
+                    x: {
+                        ticks: { 
+                            color: '#374c80',
+                            font: { family: 'Inter' },
+                            callback: function(value) {
+                                const label = this.getLabelForValue(value);
+                                return wrapLabel(label, 10);
+                            }
+                        },
+                         grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Modal functionality
+        const craftStagesContent = {
+            "C": {
+                title: "C: Cuadro Claro",
+                content: "Enfoque: Comprender y definir exhaustivamente el proceso actual que se pretende automatizar con IA. Esta etapa implica la recopilación de información completa del proceso, lo que puede hacerse mediante cuestionarios. Los detalles clave a reunir incluyen las entradas actuales, los pasos existentes, los resultados o entregables deseados, los enlaces a cualquier material actual y las plantillas que se utilizan. Una vez comprendido, el proceso debe mapearse y convertirse a un formato estructurado, proporcionando una base clara para la integración de la IA. Sin una comprensión clara del proceso existente, intentar automatizar con IA es como construir sobre arena movediza. Este paso fundamental asegura que la IA se aplique a problemas bien definidos, lo que conduce a resultados más efectivos y predecibles."
+            },
+            "R": {
+                title: "R: Diseño Realista",
+                content: "Enfoque: Desarrollar un plan factible e iterativo para la implementación de la IA, priorizando el valor inmediato. El diseño debe ser realista, evitando el error común de intentar automatizar demasiados pasos a la vez, lo que puede generar complicaciones. En su lugar, se deben priorizar los pasos clave que puedan generar beneficios inmediatos. Si un proyecto de IA propuesto parece abarcar varios meses, debe reducirse a una versión inicial más pequeña que pueda construirse e implementarse en una semana. Esto permite la creación rápida de prototipos y la validación. Este paso incorpora un enfoque ágil, reconociendo que las implementaciones complejas de IA se benefician del desarrollo iterativo. Al comenzar con una escala reducida, las organizaciones pueden mitigar riesgos, obtener victorias tempranas y generar impulso para una adopción más amplia. El énfasis en reducir procesos de varios meses a una versión inicial de una semana, junto con la recomendación de una implementación gradual del equipo, subraya que el Ciclo CRAFT no es un proceso lineal rígido, sino un enfoque iterativo y adaptable. Esta flexibilidad es crucial dada la naturaleza intrínsecamente compleja y cambiante de los proyectos de IA, permitiendo la minimización de riesgos y el aprendizaje y la adaptación continuos."
+            },
+            "A": {
+                title: "A: Implementación Real",
+                content: "Enfoque: Construir y desplegar el flujo de trabajo impulsado por IA basándose en el diseño realista. Esto implica traducir el proceso estructurado en flujos de trabajo de IA accionables. Los componentes clave incluyen la definición de entradas o prompts claros para la IA, la descripción de los pasos específicos para la ejecución de la IA y la especificación de los resultados deseados. El sistema de IA se construye y se pone en funcionamiento, automatizando el proceso definido. Este paso requiere una atención meticulosa a los detalles para asegurar que la IA funcione según lo previsto. Aquí es donde el diseño teórico se convierte en una solución tangible de IA. El énfasis en entradas y salidas claras resalta la importancia de una ingeniería de prompts precisa y datos estructurados para un rendimiento óptimo de la IA."
+            },
+            "T": {
+                title: "T: Implementación en Equipo",
+                content: "Enfoque: Adopción gradual del sistema de IA y fomento de una 'mentalidad con enfoque en IA' en todo el equipo. En lugar de un despliegue completo e inmediato, Woods recomienda implementar el sistema de IA recién construido primero en un pequeño grupo de personas. Esto permite la recopilación de retroalimentación de alto volumen en un entorno controlado. Crucialmente, este paso implica construir una familiaridad fundamental con la IA. Si los equipos carecen de una 'mentalidad con enfoque en IA' o de una comprensión básica, puede ser necesario 'retroceder' y enseñarles sobre la escritura de prompts y el uso de la IA para tareas básicas antes de que puedan utilizar eficazmente procesos de IA sofisticados. Los niveles de comodidad con las herramientas de IA deben guiar el ritmo de adopción. Una implementación exitosa en equipo asegura que el sistema de IA sea adoptado eficazmente por la organización en general, lo que lleva a beneficios generalizados y a un cambio cultural hacia la integración de la IA en los flujos de trabajo diarios. Este paso resalta el elemento humano de la integración de la IA. La adopción de tecnología no se trata solo de la herramienta, sino de las personas que la utilizan. Al priorizar la capacitación fundamental y la implementación por fases, las organizaciones pueden superar la resistencia y construir una fuerza laboral verdaderamente empoderada por la IA. La necesidad de 'retroceder' y enseñar a los equipos sobre 'la escritura de prompts y el uso de la IA para tareas básicas' antes de que puedan comprender procesos de IA sofisticados revela un requisito previo crítico para la integración exitosa de la IA: un nivel básico de alfabetización en IA y comodidad en toda la organización. Sin esto, incluso los sistemas de IA mejor diseñados enfrentarán barreras para su adopción. El Ciclo CRAFT aborda implícitamente esto al construir una familiaridad fundamental durante la fase de implementación."
+            },
+            "F": {
+                title: "F: Bucle de Retroalimentación",
+                content: "Enfoque: Establecer un mecanismo continuo para recopilar retroalimentación y refinar el sistema de IA. Esta es una etapa crítica que a menudo es pasada por alto por las organizaciones en su prisa por pasar al siguiente proyecto. Requiere una recopilación intencional de retroalimentación para evaluar la calidad de la salida de la IA e identificar cualquier problema que pueda disminuir el valor del sistema antes de su implementación completa. La retroalimentación asegura la mejora continua, permitiendo que los sistemas evolucionen y se adapten basándose en la entrada del usuario. Este refinamiento iterativo es esencial para obtener el Retorno de la Inversión (ROI) completo de la implementación de la IA. El bucle de retroalimentación transforma la implementación de la IA de un proyecto único a un proceso de optimización continua. Reconoce que los sistemas de IA son dinámicos y requieren ajustes constantes para seguir siendo efectivos y valiosos en entornos cambiantes. La importancia de la retroalimentación se subraya al señalar que sin ella, las organizaciones corren el riesgo de 'no obtener el ROI completo de su implementación de IA' y de no poder 'refinar los procesos una vez implementados, asegurando que los sistemas mejoren con el tiempo'. Esto eleva la retroalimentación de una simple comprobación de calidad a un componente fundamental para lograr un valor empresarial medible y asegurar la viabilidad y mejora a largo plazo de los sistemas de IA. Implica que los sistemas de IA son entidades vivas que requieren una entrada y un refinamiento humanos continuos."
+            }
+        };
+
+        const modal = document.getElementById('craftModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        const flowSteps = document.querySelectorAll('.flow-step');
+
+        flowSteps.forEach(step => {
+            step.addEventListener('click', () => {
+                const stepId = step.id.replace('craft-', '');
+                const content = craftStagesContent[stepId];
+                if (content) {
+                    modalTitle.textContent = content.title;
+                    modalContent.textContent = content.content;
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; /* Prevent body scroll */
+                }
+            });
+        });
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; /* Restore body scroll */
+        }
+
+        // Close modal on outside click
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
